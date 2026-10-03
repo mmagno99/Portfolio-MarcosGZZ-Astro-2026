@@ -5,7 +5,7 @@ export const quoteCopy = {
       'Elige lo que necesitas y obtén una estimación clara, en pesos mexicanos.',
     automatic: 'Cotización instantánea',
     automaticDesc: 'Configura tu sitio y descarga el desglose en PDF.',
-    custom: 'Proyecto a medida',
+    custom: 'Cotización personalizada',
     customDesc: 'Cuéntame tu idea para revisar un alcance personalizado.',
     choose: 'Elegir modalidad',
     features: 'Diseña tu sitio',
@@ -35,7 +35,7 @@ export const quoteCopy = {
     total: 'Total con IVA',
     note: 'Estimación orientativa, válida por 30 días. El alcance y los plazos se confirman antes de contratar.',
     local:
-      'El PDF se genera en tu navegador. Tus datos no se envían ni se guardan; para recibir seguimiento utiliza Proyecto a medida.',
+      'El PDF se genera en tu navegador. Tus datos no se envían ni se guardan; para recibir seguimiento utiliza Cotización personalizada.',
     consent:
       'Autorizo el envío de estos datos a Marcos GZZ para responder a mi solicitud.',
     sent: 'Solicitud enviada',
@@ -94,7 +94,7 @@ export const quoteCopy = {
     intro: 'Choose what you need and get a clear estimate in Mexican pesos.',
     automatic: 'Instant quote',
     automaticDesc: 'Configure your website and download an itemized PDF.',
-    custom: 'Custom project',
+    custom: 'Custom quote',
     customDesc: 'Tell me about your idea so we can define a tailored scope.',
     choose: 'Choose a quote type',
     features: 'Build your website',
@@ -124,7 +124,7 @@ export const quoteCopy = {
     total: 'Total including VAT',
     note: 'Indicative estimate, valid for 30 days. Scope and timing are confirmed before contracting.',
     local:
-      'The PDF is generated in your browser. Your details are neither sent nor stored; choose Custom project to request a response.',
+      'The PDF is generated in your browser. Your details are neither sent nor stored; choose Custom quote to request a response.',
     consent:
       'I authorize sending these details to Marcos GZZ to respond to my request.',
     sent: 'Request sent',
@@ -183,7 +183,7 @@ export const quoteCopy = {
       'Escolha o que precisa e obtenha uma estimativa clara em pesos mexicanos.',
     automatic: 'Orçamento instantâneo',
     automaticDesc: 'Configure seu site e baixe o detalhamento em PDF.',
-    custom: 'Projeto personalizado',
+    custom: 'Orçamento personalizado',
     customDesc: 'Conte sua ideia para definirmos um escopo personalizado.',
     choose: 'Escolher modalidade',
     features: 'Monte seu site',
@@ -213,7 +213,7 @@ export const quoteCopy = {
     total: 'Total com IVA',
     note: 'Estimativa indicativa, válida por 30 dias. O escopo e os prazos são confirmados antes da contratação.',
     local:
-      'O PDF é gerado no seu navegador. Seus dados não são enviados nem armazenados; escolha Projeto personalizado para solicitar uma resposta.',
+      'O PDF é gerado no seu navegador. Seus dados não são enviados nem armazenados; escolha Orçamento personalizado para solicitar uma resposta.',
     consent:
       'Autorizo o envio destes dados a Marcos GZZ para responder à minha solicitação.',
     sent: 'Solicitação enviada',

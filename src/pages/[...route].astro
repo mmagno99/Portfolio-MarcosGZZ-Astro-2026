@@ -5,6 +5,8 @@ import PageContent from '../components/PageContent.astro';
 import ProjectDetail from '../components/ProjectDetail.astro';
 import { languages, copy, translate, localized, type Lang } from '../lib/i18n';
 import { projects, type Project } from '../data/projects';
+import PolicyPage from '../views/PolicyPage.astro';
+import { policies, type PolicyKey } from '../features/legal/content';
 export function getStaticPaths() {
   return languages.flatMap((lang) => {
     const prefix = lang === 'es' ? '' : lang + '/';
@@ -16,6 +18,7 @@ export function getStaticPaths() {
       'projects-tdi',
       'about',
       'blog',
+      ...Object.keys(policies[lang]),
     ].map((page) => ({
       params: {
         route: localized(lang, page).replace(/^\/+|\/+$/g, '') || undefined,
@@ -34,7 +37,10 @@ interface Props {
   page: string;
   project?: Project;
 }
-const { lang, page, project } = Astro.props;
+const { lang, page, project }: Props = Astro.props;
+const policy = Object.hasOwn(policies[lang], page)
+  ? (page as PolicyKey)
+  : undefined;
 const descriptions: Record<string, string> = {
   projects: copy[lang].workDesc,
   about: copy[lang].aboutDesc,
@@ -57,14 +63,21 @@ const titles: Record<string, string> = {
 <Layout
   lang={lang}
   path={page}
-  title={project?.name ?? titles[page]}
+  title={
+    project?.name ?? (policy ? policies[lang][policy].title : titles[page])
+  }
   image={project?.image}
-  description={project?.description?.[lang] ?? descriptions[page]}
+  description={
+    project?.description?.[lang] ??
+    (policy ? policies[lang][policy].description : descriptions[page])
+  }
 >
   {page === '' ? (
     <Home lang={lang} />
   ) : project ? (
     <ProjectDetail lang={lang} project={project} />
+  ) : policy ? (
+    <PolicyPage lang={lang} policy={policy} />
   ) : (
     <PageContent lang={lang} page={page} />
   )}

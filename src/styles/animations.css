@@ -46,31 +46,6 @@
 .animate-pulse-slow {
   animation: pulse-slow 8s ease-in-out infinite;
 }
-.site-nav {
-  background-color: rgb(255 255 255 / 0.65);
-  transition:
-    background-color 300ms,
-    box-shadow 300ms,
-    border-color 300ms;
-}
-.site-nav.is-scrolled {
-  background-color: rgb(255 255 255 / 0.94);
-  border-color: rgb(224 231 255 / 0.8);
-  box-shadow: 0 8px 28px -18px #312e8150;
-}
-#mobile-menu:not([hidden]) {
-  animation: menu-in 180ms ease-out;
-}
-@keyframes menu-in {
-  from {
-    opacity: 0;
-    transform: translateY(-6px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
 [id] {
   scroll-margin-top: 6rem;
 }

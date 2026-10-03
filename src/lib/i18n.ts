@@ -14,8 +14,22 @@ export function localized(lang: Lang, path = '') {
   const spanish: Record<string, string> = {
     projects: 'proyectos',
     about: 'acerca-de',
+    'privacy-policy': 'politica-de-privacidad',
+    'cookie-policy': 'politica-de-cookies',
+    terms: 'terminos-y-condiciones',
   };
-  return `${lang === 'es' ? '' : '/' + lang}/${lang === 'es' ? (spanish[clean] ?? clean) : clean}`;
+  const portuguese: Record<string, string> = {
+    'privacy-policy': 'politica-de-privacidade',
+    'cookie-policy': 'politica-de-cookies',
+    terms: 'termos-e-condicoes',
+  };
+  const translated =
+    lang === 'es'
+      ? (spanish[clean] ?? clean)
+      : lang === 'pt'
+        ? (portuguese[clean] ?? clean)
+        : clean;
+  return `${lang === 'es' ? '' : '/' + lang}/${translated}`;
 }
 export const copy = {
   es: {

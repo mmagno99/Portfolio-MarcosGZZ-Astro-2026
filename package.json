@@ -11,6 +11,7 @@
     "start": "astro preview --host 127.0.0.1",
     "check": "astro check",
     "test": "node --test tests/*.test.mjs",
+    "test:preview": "node tests/preview-server.mjs",
     "format": "prettier --write src astro.config.mjs tests README.md package.json tsconfig.json"
   },
   "dependencies": {

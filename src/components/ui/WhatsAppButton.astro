@@ -1,0 +1,91 @@
+---
+import SocialIcon from './SocialIcon.astro';
+interface Props {
+  phone: string;
+  message: string;
+  bubbleText: string;
+  label: string;
+}
+const { phone, message, bubbleText, label } = Astro.props;
+const digits = phone.replace(/\D/g, '');
+const href = `https://api.whatsapp.com/send?phone=${digits}&text=${encodeURIComponent(message)}`;
+---
+
+<a
+  data-whatsapp
+  href={href}
+  target="_blank"
+  rel="noopener noreferrer"
+  aria-label={label}
+  class="whatsapp"
+>
+  <span class="bubble" aria-hidden="true">
+    {bubbleText}
+  </span>
+  <span class="circle">
+    <SocialIcon name="whatsapp" />
+  </span>
+</a>
+<style>
+  .whatsapp {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    position: fixed;
+    z-index: 30;
+    right: calc(env(safe-area-inset-right, 0px) + 24px);
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 24px);
+    max-width: calc(100vw - 48px);
+    transition: transform 300ms ease;
+  }
+  .circle {
+    display: grid;
+    place-items: center;
+    width: 56px;
+    height: 56px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: #15803d;
+    color: #fff;
+    box-shadow: 0 8px 20px rgb(0 0 0 / 0.15);
+    transition: background-color 200ms ease;
+  }
+  .circle :global(svg) {
+    width: 30px;
+    height: 30px;
+  }
+  .bubble {
+    padding: 12px 24px;
+    border-radius: 999px;
+    background: #fff;
+    color: #1f2937;
+    font-size: 14px;
+    font-weight: 600;
+    box-shadow: 0 8px 20px rgb(0 0 0 / 0.12);
+  }
+  .whatsapp:hover {
+    transform: scale(1.05);
+  }
+  .whatsapp:hover .circle {
+    background: #166534;
+  }
+  .whatsapp:focus-visible {
+    outline: 3px solid #818cf8;
+    outline-offset: 5px;
+    border-radius: 999px;
+  }
+  @media (max-width: 639px) {
+    .bubble {
+      display: none;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .whatsapp,
+    .circle {
+      transition: none;
+    }
+    .whatsapp:hover {
+      transform: none;
+    }
+  }
+</style>

@@ -1,0 +1,78 @@
+---
+import SocialIcon from './SocialIcon.astro';
+interface Props {
+  links: {
+    label: string;
+    href: string;
+    icon: 'github' | 'linkedin' | 'instagram';
+  }[];
+  label: string;
+  newTabLabel: string;
+}
+const { links, label, newTabLabel } = Astro.props;
+---
+
+<nav aria-label={label} class="social-links">
+  {links.map(({ label, href, icon }) => (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label={`${label} (${newTabLabel})`}
+      title={label}
+    >
+      <SocialIcon name={icon} />
+    </a>
+  ))}
+</nav>
+<style>
+  .social-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2px;
+  }
+  a {
+    display: inline-flex;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    color: #fff;
+    transition:
+      transform 200ms ease,
+      background-color 200ms ease;
+  }
+  a::before {
+    content: '';
+    position: absolute;
+    inset: 6px;
+    border-radius: 50%;
+    background: var(--social-bg, #111827);
+    transition: background-color 200ms ease;
+  }
+  a :global(svg) {
+    position: relative;
+    width: 16px;
+    height: 16px;
+  }
+  a:hover {
+    transform: scale(1.07);
+  }
+  a:hover::before {
+    background-color: #4f46e5;
+  }
+  a:focus-visible {
+    outline: 3px solid #818cf8;
+    outline-offset: 4px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    a {
+      transition: none;
+    }
+    a:hover {
+      transform: none;
+    }
+  }
+</style>

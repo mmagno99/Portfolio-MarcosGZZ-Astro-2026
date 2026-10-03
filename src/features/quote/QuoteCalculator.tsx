@@ -7,7 +7,8 @@ import {
 } from './pricing.mjs';
 import { quoteCopy, type FeatureKey } from './copy';
 import { site } from '../../config/site';
-import type { Lang } from '../../lib/i18n';
+import { localized, type Lang } from '../../lib/i18n';
+import { uiCopy } from '../../components/ui/copy';
 import type { Client } from './pdf';
 const dependencies: Partial<Record<FeatureKey, FeatureKey>> = {
   contactForm: 'contact',
@@ -20,6 +21,7 @@ const inputClass =
   'mt-2 w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200';
 export default function QuoteCalculator({ lang }: { lang: Lang }) {
   const c = quoteCopy[lang];
+  const ui = uiCopy[lang];
   const [mode, setMode] = useState<'choose' | 'automatic' | 'custom'>('choose');
   const [selection, setSelection] = useState<Record<string, boolean>>({});
   const [busy, setBusy] = useState(false);
@@ -162,7 +164,19 @@ export default function QuoteCalculator({ lang }: { lang: Lang }) {
                   aria-hidden="true"
                   className="mt-8 block text-2xl text-indigo-600"
                 >
-                  ↗
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.7"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    focusable="false"
+                  >
+                    <path d="M7 17 17 7M7 7h10v10" />
+                  </svg>
                 </span>
               </button>
             ))}
@@ -390,6 +404,16 @@ export default function QuoteCalculator({ lang }: { lang: Lang }) {
                       />
                       {c.consent}
                     </label>
+                    <p className="mt-3 text-xs leading-6 text-slate-500">
+                      {ui.privacyNotice}{' '}
+                      <a
+                        href={localized(lang, 'privacy-policy')}
+                        className="font-semibold text-indigo-600 underline underline-offset-4"
+                      >
+                        {ui.privacy}
+                      </a>
+                      .
+                    </p>
                   </>
                 )}
                 <p className="mt-6 text-xs leading-6 text-slate-500">

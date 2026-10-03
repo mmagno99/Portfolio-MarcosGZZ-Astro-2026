@@ -1,3 +1,3 @@
 User-agent: *
 Allow: /
-Sitemap: https://mmagno.dev/sitemap-index.xml
+Sitemap: https://marcosgzz.tech/sitemap-index.xml

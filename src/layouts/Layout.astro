@@ -3,8 +3,13 @@ import '../styles/global.css';
 import '../styles/animations.css';
 import ScrollAnimations from '../components/ScrollAnimations.astro';
 import about from '../data/about.js';
-import { copy, localized, languages, translate, type Lang } from '../lib/i18n';
-import Icon from '../components/Icon.astro';
+import { copy, localized, languages, type Lang } from '../lib/i18n';
+import Header from '../components/ui/Header.astro';
+import Footer from '../components/ui/Footer.astro';
+import BackToTop from '../components/ui/BackToTop.astro';
+import WhatsAppButton from '../components/ui/WhatsAppButton.astro';
+import { uiCopy } from '../components/ui/copy';
+import { site } from '../config/site';
 interface Props {
   lang?: Lang;
   title: string;
@@ -24,34 +29,33 @@ const {
   noindex = false,
 } = Astro.props;
 const c = copy[lang];
+const ui = uiCopy[lang];
 const canonical = new URL(
   noindex ? '/404.html' : localized(lang, path),
   Astro.site,
 );
-const nav = [
-  ['', 'navbar.nav1'],
-  ['projects', 'navbar.nav2'],
-  ['about', 'navbar.nav3'],
-  ['blog', 'navbar.nav4'],
-];
 ---
 
 <!doctype html>
 <html lang={lang}>
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
     <title>{title} · Marcos GZZ</title>
     <meta name="description" content={description} />
     <meta name="theme-color" content="#101020" />
     <meta name="author" content="Marcos González" />
-    <meta 
-    name="google-site-verification" 
-    content="qkGLytDttro0waYP5XO__CaQ1vyJmafqupGd2tgfnvU" 
+    <meta
+      name="google-site-verification"
+      content="qkGLytDttro0waYP5XO__CaQ1vyJmafqupGd2tgfnvU"
     />
     <link rel="icon" href="/favicon.ico" />
     <link rel="manifest" href="/manifest.json" />
     <link rel="canonical" href={canonical} />
+    <link rel="sitemap" href="/sitemap-index.xml" />
     {!noindex &&
       languages.map((l) => (
         <link
@@ -77,7 +81,7 @@ const nav = [
       property="og:locale"
       content={{ es: 'es_MX', en: 'en_US', pt: 'pt_BR' }[lang]}
     />
-    <meta property="og:site_name" content="Mmagno" />
+    <meta property="og:site_name" content={site.name} />
     <meta name="twitter:card" content="summary_large_image" />
     <slot name="head" />
   </head>
@@ -88,208 +92,26 @@ const nav = [
     >
       {c.skip}
     </a>
-    <header
-      data-site-nav
-      class="site-nav sticky top-0 z-40 border-b border-white/70 bg-white/80 backdrop-blur-xl"
-    >
-      <div class="shell flex min-h-20 items-center justify-between gap-4">
-        <a
-          href={localized(lang)}
-          aria-label={`Mmagno — ${translate(lang, 'navbar.nav1')}`}
-          class="text-2xl font-extrabold tracking-tighter"
-        >
-          Marcos gzz<span class="text-indigo-600">.</span>
-        </a>
-        <nav
-          aria-label={c.portfolio}
-          class="hidden items-center gap-7 text-sm font-semibold text-slate-500 md:flex"
-        >
-          {nav.map(([url, key]) => (
-            <a
-              href={localized(lang, url)}
-              aria-current={path === url ? 'page' : undefined}
-              class:list={[
-                'transition hover:text-indigo-600',
-                { 'text-indigo-600': path === url },
-              ]}
-            >
-              {translate(lang, key)}
-            </a>
-          ))}
-        </nav>
-        <div class="flex items-center gap-3 sm:gap-5">
-          <nav
-            aria-label={c.language}
-            class="flex rounded-full border border-slate-200 p-1 text-[11px] font-bold"
-          >
-            {languages.map((l) => (
-              <a
-                href={noindex ? localized(l) : localized(l, path)}
-                lang={l}
-                aria-label={
-                  { es: 'Español', en: 'English', pt: 'Português' }[l]
-                }
-                aria-current={l === lang ? 'true' : undefined}
-                class:list={[
-                  'rounded-full px-2.5 py-2 transition',
-                  l === lang
-                    ? 'bg-ink text-white'
-                    : 'text-slate-500 hover:bg-indigo-50',
-                ]}
-              >
-                {l.toUpperCase()}
-              </a>
-            ))}
-          </nav>
-          <a
-            href={localized(lang, 'cotizacion')}
-            class="pill primary hidden lg:inline-flex"
-          >
-            {c.quote}
-            <Icon class="size-4" />
-          </a>
-          <button
-            id="menu-toggle"
-            class="hidden rounded-full border border-slate-200 p-2.5"
-            aria-controls="mobile-menu"
-            aria-expanded="false"
-            aria-label={c.menu}
-            data-open-label={c.menu}
-            data-close-label={c.close}
-          >
-            <svg
-              class="size-5"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              aria-hidden="true"
-            >
-              <path d="M4 7h16M4 12h16M4 17h16" />
-            </svg>
-          </button>
-        </div>
-      </div>
-      <nav
-        id="mobile-menu"
-        aria-label={c.menu}
-        class="shell flex flex-wrap gap-5 pb-5 text-sm font-semibold md:hidden"
-      >
-        {nav.map(([url, key]) => (
-          <a
-            class="py-2 text-slate-600 hover:text-indigo-600"
-            href={localized(lang, url)}
-            aria-current={path === url ? 'page' : undefined}
-          >
-            {translate(lang, key)}
-          </a>
-        ))}
-        <a
-          href={localized(lang, 'cotizacion')}
-          class="py-2 font-bold text-indigo-600"
-        >
-          {c.quote}
-        </a>
-      </nav>
-    </header>
-    <main id="main">
+    <Header
+      lang={lang}
+      path={path}
+      alwaysWhite={path !== '' || noindex}
+      noindex={noindex}
+    />
+    <main id="main" class:list={[{ 'inner-page': path !== '' || noindex }]}>
       <slot />
     </main>
-    <footer class="border-t border-slate-200/70 bg-white">
-      <div class="shell flex flex-col justify-between gap-8 py-12 sm:flex-row sm:items-center">
-        <div>
-          <a
-            href={localized(lang)}
-            class="text-2xl font-extrabold tracking-tighter"
-          >
-            Marcos gzz<span class="text-indigo-600">.</span>
-          </a>
-          <p class="mt-3 text-xs text-slate-500">
-            © {new Date().getFullYear()} Marcos González.{' '}
-            {translate(lang, 'footer.copy')}.
-          </p>
-        </div>
-        <div class="flex flex-wrap gap-5 text-sm font-semibold text-slate-600">
-          <a
-            href="https://github.com/mmagno99"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="hover:text-indigo-600"
-          >
-            GitHub ↗
-          </a>
-          <a
-            href="https://www.linkedin.com/in/marcosgzz/"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="hover:text-indigo-600"
-          >
-            LinkedIn ↗
-          </a>
-          <a
-            href="https://www.instagram.com/mgzz.dev/"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="hover:text-indigo-600"
-          >
-            Instagram ↗
-          </a>
-        </div>
-      </div>
-    </footer>
-    <button
-      id="back-top"
-      class="fixed right-5 bottom-5 z-30 hidden rounded-full border border-white bg-indigo-600 p-3 text-white shadow-lg hover:bg-indigo-700"
-      aria-label={c.top}
-    >
-      <Icon name="up" />
-    </button>
-    <script>
-      const toggle = document.querySelector<HTMLButtonElement>('#menu-toggle');
-      const menu = document.querySelector<HTMLElement>('#mobile-menu');
-      if (toggle && menu) {
-        toggle.classList.remove('hidden');
-        toggle.classList.add('md:hidden');
-        menu.hidden = true;
-        const close = () => {
-          menu.hidden = true;
-          toggle.setAttribute('aria-expanded', 'false');
-          toggle.setAttribute('aria-label', toggle.dataset.openLabel!);
-        };
-        toggle.addEventListener('click', () => {
-          const open = toggle.getAttribute('aria-expanded') !== 'true';
-          menu.hidden = !open;
-          toggle.setAttribute('aria-expanded', String(open));
-          toggle.setAttribute(
-            'aria-label',
-            open ? toggle.dataset.closeLabel! : toggle.dataset.openLabel!,
-          );
-        });
-        document.addEventListener('keydown', (e) => {
-          if (e.key === 'Escape' && !menu.hidden) {
-            close();
-            toggle.focus();
-          }
-        });
-        matchMedia('(min-width: 768px)').addEventListener('change', close);
-      }
-      const topButton = document.querySelector<HTMLButtonElement>('#back-top');
-      const navbar = document.querySelector('[data-site-nav]');
-      const update = () => {
-        topButton?.classList.toggle('hidden', window.scrollY < 500);
-        navbar?.classList.toggle('is-scrolled', window.scrollY > 10);
-      };
-      window.addEventListener('scroll', update, { passive: true });
-      update();
-      topButton?.addEventListener('click', () =>
-        window.scrollTo({
-          top: 0,
-          behavior: matchMedia('(prefers-reduced-motion: reduce)').matches
-            ? 'instant'
-            : 'smooth',
-        }),
-      );
-    </script>
+    <Footer lang={lang} />
+    <BackToTop label={c.top} side={path === 'cotizacion' ? 'left' : 'right'} />
+    {path === 'cotizacion' && (
+      <WhatsAppButton
+        phone={site.phone}
+        message={ui.message}
+        bubbleText={ui.bubble}
+        label={ui.whatsapp}
+      />
+    )}
+
     <ScrollAnimations />
   </body>
 </html>

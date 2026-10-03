@@ -1,0 +1,124 @@
+---
+import { copy, localized, translate, type Lang } from '../../lib/i18n';
+import { site } from '../../config/site';
+import { uiCopy } from './copy';
+import SocialLinks from './SocialLinks.astro';
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const ui = uiCopy[lang];
+const navigation = [
+  ['', translate(lang, 'navbar.nav1')],
+  ['projects', translate(lang, 'navbar.nav2')],
+  ['about', translate(lang, 'navbar.nav3')],
+  ['blog', translate(lang, 'navbar.nav4')],
+  ['cotizacion', copy[lang].quote],
+];
+const legalLinks = [
+  ['terms', ui.terms],
+  ['privacy-policy', ui.privacy],
+  ['cookie-policy', ui.cookies],
+];
+const socialLinks = [
+  {
+    label: 'GitHub',
+    href: 'https://github.com/mmagno99',
+    icon: 'github' as const,
+  },
+  {
+    label: 'LinkedIn',
+    href: 'https://www.linkedin.com/in/marcosgzz/',
+    icon: 'linkedin' as const,
+  },
+  {
+    label: 'Instagram',
+    href: 'https://www.instagram.com/mgzz.dev/',
+    icon: 'instagram' as const,
+  },
+];
+---
+
+<footer class="border-t border-slate-200/70 bg-white">
+  <div class="shell pt-14 pb-24 sm:pt-16 sm:pb-12">
+    <div class="grid gap-10 md:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1fr] lg:gap-8">
+      <div class="max-w-sm">
+        <a
+          href={localized(lang)}
+          class="text-2xl font-extrabold tracking-tighter"
+        >
+          Marcos GZZ<span class="text-indigo-600">.</span>
+        </a>
+        <p class="mt-5 text-sm leading-7 text-slate-500">
+          {ui.footerDescription}
+        </p>
+        <div class="mt-5">
+          <SocialLinks
+            links={socialLinks}
+            label={ui.social}
+            newTabLabel={ui.newTab}
+          />
+        </div>
+      </div>
+      <nav aria-labelledby="footer-sitemap">
+        <h2 id="footer-sitemap" class="text-sm font-extrabold text-ink">
+          {ui.sitemap}
+        </h2>
+        <ul class="mt-5 space-y-1 text-sm text-slate-500">
+          {navigation.map(([route, label]) => (
+            <li>
+              <a
+                href={localized(lang, route)}
+                class="inline-block py-2 transition hover:text-indigo-600"
+              >
+                {label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+      <section aria-labelledby="footer-contact">
+        <h2 id="footer-contact" class="text-sm font-extrabold text-ink">
+          {ui.footerContact}
+        </h2>
+        <address class="mt-5 space-y-4 text-sm leading-6 text-slate-500 not-italic">
+          <a
+            href={`mailto:${site.email}`}
+            class="block break-words transition hover:text-indigo-600"
+          >
+            {site.email}
+          </a>
+          <p>{ui.location}</p>
+          <p class="inline-flex items-center gap-2 rounded-full border border-indigo-100 bg-indigo-50/60 px-3 py-1 text-xs font-semibold text-indigo-700">
+            <span
+              aria-hidden="true"
+              class="size-1.5 rounded-full bg-indigo-500"
+            ></span>
+            {ui.responseTime}
+          </p>
+        </address>
+      </section>
+      <nav aria-labelledby="footer-legal">
+        <h2 id="footer-legal" class="text-sm font-extrabold text-ink">
+          {ui.footerLegal}
+        </h2>
+        <ul class="mt-5 space-y-1 text-sm text-slate-500">
+          {legalLinks.map(([route, label]) => (
+            <li>
+              <a
+                href={localized(lang, route)}
+                class="inline-block py-2 transition hover:text-indigo-600"
+              >
+                {label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </div>
+    <p class="mt-10 border-t border-slate-200/70 pt-6 text-xs leading-6 text-slate-500">
+      © {new Date().getFullYear()} Marcos González.{' '}
+      {translate(lang, 'footer.copy')}.
+    </p>
+  </div>
+</footer>

@@ -1,0 +1,110 @@
+---
+import Icon from '../Icon.astro';
+interface Props {
+  label: string;
+  threshold?: number;
+  side?: 'left' | 'right';
+}
+const { label, threshold = 280, side = 'right' } = Astro.props;
+---
+
+<button
+  type="button"
+  aria-label={label}
+  title={label}
+  data-back-to-top
+  data-threshold={threshold}
+  class:list={['back-to-top', side]}
+  data-side={side}
+  disabled
+>
+  <Icon name="up" class="size-5" />
+</button>
+<style>
+  .back-to-top {
+    display: grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    position: fixed;
+    z-index: 30;
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 24px);
+    border: 1px solid rgb(255 255 255 / 0.2);
+    border-radius: 50%;
+    background: #4f46e5;
+    color: #fff;
+    box-shadow: 0 8px 20px rgb(0 0 0 / 0.15);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition:
+      opacity 200ms ease,
+      visibility 200ms ease,
+      background-color 200ms ease;
+  }
+  .left {
+    left: calc(env(safe-area-inset-left, 0px) + 24px);
+  }
+  .right {
+    right: calc(env(safe-area-inset-right, 0px) + 24px);
+  }
+  .back-to-top.is-visible {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+  .back-to-top:hover {
+    background: #4338ca;
+  }
+  .back-to-top:focus-visible {
+    outline: 3px solid #818cf8;
+    outline-offset: 4px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .back-to-top {
+      transition: none;
+    }
+  }
+</style>
+<script>
+  let controller: AbortController | undefined;
+  function initBackToTop() {
+    controller?.abort();
+    controller = new AbortController();
+    const { signal } = controller;
+    const buttons =
+      document.querySelectorAll<HTMLButtonElement>('[data-back-to-top]');
+    function updateVisibility() {
+      buttons.forEach((button) => {
+        const visible =
+          window.scrollY > Number(button.dataset.threshold ?? 280);
+        button.classList.toggle('is-visible', visible);
+        button.disabled = !visible;
+      });
+    }
+    buttons.forEach((button) =>
+      button.addEventListener(
+        'click',
+        () => {
+          window.scrollTo({
+            top: 0,
+            behavior: window.matchMedia('(prefers-reduced-motion: reduce)')
+              .matches
+              ? 'instant'
+              : 'smooth',
+          });
+        },
+        { signal },
+      ),
+    );
+    window.addEventListener('scroll', updateVisibility, {
+      passive: true,
+      signal,
+    });
+    window.addEventListener('pageshow', updateVisibility, { signal });
+    updateVisibility();
+  }
+  initBackToTop();
+  document.addEventListener('astro:page-load', initBackToTop);
+  document.addEventListener('astro:before-swap', () => controller?.abort());
+</script>

@@ -1,0 +1,546 @@
+---
+import {
+  copy,
+  languages,
+  localized,
+  translate,
+  type Lang,
+} from '../../lib/i18n';
+import { uiCopy } from './copy';
+import Icon from '../Icon.astro';
+interface Props {
+  lang: Lang;
+  path?: string;
+  alwaysWhite?: boolean;
+  noindex?: boolean;
+}
+const { lang, path = '', alwaysWhite = false, noindex = false } = Astro.props;
+const c = copy[lang];
+const ui = uiCopy[lang];
+const nav = [
+  ['', 'navbar.nav1'],
+  ['projects', 'navbar.nav2'],
+  ['about', 'navbar.nav3'],
+  ['blog', 'navbar.nav4'],
+];
+---
+
+<header
+  data-site-header
+  data-always-white={String(alwaysWhite)}
+  class:list={['site-header', { 'is-white': alwaysWhite }]}
+>
+  <div class="shell navigation">
+    <a
+      href={localized(lang)}
+      aria-label={`Mmagno — ${translate(lang, 'navbar.nav1')}`}
+      class="brand"
+    >
+      Marcos gzz<span>.</span>
+    </a>
+    <nav class="desktop-links" aria-label={c.portfolio}>
+      {nav.map(([url, key]) => (
+        <a
+          href={localized(lang, url)}
+          aria-current={path === url ? 'page' : undefined}
+        >
+          {translate(lang, key)}
+        </a>
+      ))}
+    </nav>
+    <div class="header-actions">
+      <nav class="languages" aria-label={c.language}>
+        {languages.map((l) => (
+          <a
+            href={noindex ? localized(l) : localized(l, path)}
+            lang={l}
+            aria-label={{ es: 'Español', en: 'English', pt: 'Português' }[l]}
+            aria-current={l === lang ? 'true' : undefined}
+          >
+            {l.toUpperCase()}
+          </a>
+        ))}
+      </nav>
+      <a
+        href={localized(lang, 'cotizacion')}
+        class="pill primary desktop-quote"
+      >
+        {c.quote}
+        <Icon class="size-4" />
+      </a>
+      <button
+        type="button"
+        data-menu-toggle
+        aria-controls="mobile-menu"
+        aria-expanded="false"
+        aria-label={c.menu}
+        class="menu-toggle"
+      >
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linecap="round"
+          aria-hidden="true"
+        >
+          <path d="M4 7h16M4 12h16M4 17h16" />
+        </svg>
+      </button>
+    </div>
+  </div>
+  <dialog id="mobile-menu" class="mobile-drawer" aria-labelledby="drawer-title">
+    <div class="drawer-content">
+      <div class="drawer-top">
+        <a href={localized(lang)} class="brand drawer-brand">
+          Marcos gzz<span>.</span>
+        </a>
+        <button
+          type="button"
+          data-menu-close
+          aria-label={c.close}
+          class="drawer-close"
+          autofocus
+        >
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            aria-hidden="true"
+          >
+            <path d="m6 6 12 12M18 6 6 18" />
+          </svg>
+        </button>
+      </div>
+      <div class="drawer-heading">
+        <p class="eyebrow">{c.portfolio}</p>
+        <h2 id="drawer-title">{ui.menuTitle}</h2>
+      </div>
+      <nav class="drawer-links" aria-label={c.portfolio}>
+        {nav.map(([url, key], index) => (
+          <a
+            href={localized(lang, url)}
+            aria-current={path === url ? 'page' : undefined}
+          >
+            <span class="link-number">0{index + 1}</span>
+            <span>{translate(lang, key)}</span>
+            <Icon class="size-5" />
+          </a>
+        ))}
+      </nav>
+      <a href={localized(lang, 'cotizacion')} class="pill primary drawer-quote">
+        {c.quote}
+        <Icon class="size-4" />
+      </a>
+      <p class="drawer-note">{c.available}</p>
+      <nav class="drawer-policies" aria-label={ui.legal}>
+        <a href={localized(lang, 'privacy-policy')}>{ui.privacy}</a>
+        <a href={localized(lang, 'cookie-policy')}>{ui.cookies}</a>
+      </nav>
+    </div>
+  </dialog>
+</header>
+
+<style>
+  .site-header {
+    position: fixed;
+    inset: 0 0 auto;
+    z-index: 40;
+    color: #fff;
+    background: transparent;
+    border-bottom: 1px solid transparent;
+    padding-top: env(safe-area-inset-top, 0px);
+    transition:
+      background-color 300ms ease,
+      color 300ms ease,
+      box-shadow 300ms ease,
+      border-color 300ms ease;
+  }
+  .site-header.is-white {
+    color: #151525;
+    background: #fff;
+    border-color: #e2e8f0;
+    box-shadow: 0 8px 28px -18px #312e8150;
+  }
+  .navigation {
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .brand {
+    flex-shrink: 0;
+    color: inherit;
+    font-size: 24px;
+    font-weight: 800;
+    letter-spacing: -0.065em;
+  }
+  .brand span {
+    color: #c7d2fe;
+  }
+  .is-white .brand span,
+  .drawer-brand span {
+    color: #4f46e5;
+  }
+  .desktop-links {
+    display: none;
+    align-items: center;
+    gap: 28px;
+    font-size: 14px;
+    font-weight: 600;
+  }
+  .desktop-links a {
+    opacity: 0.8;
+    transition: opacity 200ms ease;
+  }
+  .desktop-links a:hover,
+  .desktop-links a[aria-current] {
+    opacity: 1;
+  }
+  .is-white .desktop-links a:hover,
+  .is-white .desktop-links a[aria-current] {
+    color: #4f46e5;
+  }
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .languages {
+    display: flex;
+    padding: 4px;
+    border: 1px solid rgb(255 255 255 / 0.25);
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 700;
+  }
+  .languages a {
+    display: grid;
+    place-items: center;
+    min-width: 34px;
+    height: 32px;
+    border-radius: 999px;
+    transition: background-color 200ms ease;
+  }
+  .languages a[aria-current] {
+    color: #151525;
+    background: #fff;
+  }
+  .languages a:not([aria-current]):hover {
+    background: rgb(255 255 255 / 0.15);
+  }
+  .is-white .languages {
+    border-color: #e2e8f0;
+  }
+  .is-white .languages a[aria-current] {
+    color: #fff;
+    background: #151525;
+  }
+  .is-white .languages a:not([aria-current]):hover {
+    background: #eef2ff;
+  }
+  .desktop-quote {
+    display: none;
+  }
+  .menu-toggle,
+  .drawer-close {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid rgb(255 255 255 / 0.25);
+    background: transparent;
+    color: inherit;
+    flex-shrink: 0;
+  }
+  .is-white .menu-toggle {
+    border-color: #e2e8f0;
+  }
+  .mobile-drawer {
+    position: fixed;
+    inset: 0 0 0 auto;
+    margin: 0;
+    width: min(400px, calc(100vw - 24px));
+    height: 100dvh;
+    max-height: none;
+    max-width: none;
+    padding: 0;
+    border: 1px solid #fff;
+    border-radius: 28px 0 0 28px;
+    color: #151525;
+    background: linear-gradient(155deg, #f5f3ff 0%, #fff 48%, #fdf4ff 100%);
+    box-shadow: -24px 0 80px -24px #10102060;
+    overscroll-behavior: contain;
+  }
+  .mobile-drawer[open] {
+    animation: drawer-in 320ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+  .mobile-drawer::backdrop {
+    background: rgb(16 16 32 / 0.48);
+    backdrop-filter: blur(5px);
+    animation: backdrop-in 250ms ease both;
+  }
+  .mobile-drawer.is-closing {
+    animation: drawer-out 200ms ease-in both;
+  }
+  .mobile-drawer.is-closing::backdrop {
+    animation: backdrop-out 200ms ease-in both;
+  }
+  .drawer-content {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+    padding: calc(24px + env(safe-area-inset-top, 0px)) 24px
+      calc(24px + env(safe-area-inset-bottom, 0px));
+  }
+  .drawer-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .drawer-close {
+    border-color: #e2e8f0;
+    background: rgb(255 255 255 / 0.7);
+  }
+  .drawer-heading {
+    margin: 36px 0 24px;
+  }
+  .drawer-heading h2 {
+    margin-top: 12px;
+    font-size: 28px;
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: -0.04em;
+  }
+  .drawer-links {
+    display: grid;
+    gap: 10px;
+  }
+  .drawer-links a {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px;
+    border-radius: 18px;
+    background: rgb(255 255 255 / 0.7);
+    border: 1px solid #e2e8f0;
+    font-weight: 700;
+    transition:
+      background-color 200ms ease,
+      border-color 200ms ease;
+  }
+  .drawer-links a:hover,
+  .drawer-links a[aria-current] {
+    border-color: #c7d2fe;
+    background: #eef2ff;
+    color: #4338ca;
+  }
+  .link-number {
+    font-size: 11px;
+    color: #818cf8;
+  }
+  .drawer-links a :global(svg) {
+    margin-left: auto;
+    color: #6366f1;
+  }
+  .drawer-quote {
+    margin-top: 24px;
+  }
+  .drawer-note {
+    margin: 20px 0 32px;
+    font-size: 12px;
+    line-height: 1.8;
+    color: #64748b;
+  }
+  .drawer-policies {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 20px;
+    margin-top: auto;
+    padding-top: 20px;
+    border-top: 1px solid #e2e8f0;
+    font-size: 12px;
+    color: #64748b;
+  }
+  a:focus-visible,
+  button:focus-visible {
+    outline: 3px solid #818cf8;
+    outline-offset: 4px;
+  }
+  @keyframes drawer-in {
+    from {
+      transform: translateX(100%);
+      opacity: 0.6;
+    }
+    to {
+      transform: none;
+      opacity: 1;
+    }
+  }
+  @keyframes drawer-out {
+    to {
+      transform: translateX(100%);
+      opacity: 0.6;
+    }
+  }
+  @keyframes backdrop-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  @keyframes backdrop-out {
+    to {
+      opacity: 0;
+    }
+  }
+  @media (min-width: 768px) {
+    .desktop-links {
+      display: flex;
+    }
+    .menu-toggle {
+      display: none;
+    }
+    .header-actions {
+      gap: 20px;
+    }
+  }
+  @media (min-width: 1024px) {
+    .desktop-quote {
+      display: inline-flex;
+    }
+  }
+  @media (max-width: 374px) {
+    .brand {
+      font-size: 21px;
+    }
+    .header-actions {
+      gap: 8px;
+    }
+    .languages a {
+      min-width: 29px;
+    }
+    .navigation {
+      gap: 8px;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .site-header,
+    .mobile-drawer[open],
+    .mobile-drawer.is-closing,
+    .mobile-drawer::backdrop {
+      transition: none;
+      animation: none;
+    }
+  }
+</style>
+
+<script>
+  let controller: AbortController | undefined;
+  let cleanupMenu: (() => void) | undefined;
+  function initHeader() {
+    controller?.abort();
+    cleanupMenu?.();
+    controller = new AbortController();
+    const { signal } = controller;
+    const headers =
+      document.querySelectorAll<HTMLElement>('[data-site-header]');
+    const updateHeader = () =>
+      headers.forEach((header) =>
+        header.classList.toggle(
+          'is-white',
+          header.dataset.alwaysWhite === 'true' || window.scrollY > 10,
+        ),
+      );
+    updateHeader();
+    window.addEventListener('scroll', updateHeader, { passive: true, signal });
+    headers.forEach((header) => {
+      const toggle =
+        header.querySelector<HTMLButtonElement>('[data-menu-toggle]');
+      const dialog = header.querySelector<HTMLDialogElement>('.mobile-drawer');
+      if (!toggle || !dialog) return;
+      let closeTimer: ReturnType<typeof setTimeout> | undefined;
+      let previousOverflow = '';
+      const finishClose = () => {
+        clearTimeout(closeTimer);
+        if (!dialog.open) return;
+        dialog.close();
+        dialog.classList.remove('is-closing');
+        document.documentElement.style.overflow = previousOverflow;
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.focus({ preventScroll: true });
+      };
+      const close = () => {
+        if (!dialog.open || dialog.classList.contains('is-closing')) return;
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches)
+          return finishClose();
+        dialog.classList.add('is-closing');
+        closeTimer = setTimeout(finishClose, 220);
+      };
+      toggle.addEventListener(
+        'click',
+        () => {
+          if (dialog.open) return close();
+          previousOverflow = document.documentElement.style.overflow;
+          dialog.showModal();
+          document.documentElement.style.overflow = 'hidden';
+          toggle.setAttribute('aria-expanded', 'true');
+        },
+        { signal },
+      );
+      dialog
+        .querySelector('[data-menu-close]')
+        ?.addEventListener('click', close, { signal });
+      dialog.addEventListener(
+        'cancel',
+        (event) => {
+          event.preventDefault();
+          close();
+        },
+        { signal },
+      );
+      dialog.addEventListener(
+        'click',
+        (event) => {
+          const box = dialog.getBoundingClientRect();
+          if (
+            event.target === dialog &&
+            (event.clientX < box.left ||
+              event.clientX > box.right ||
+              event.clientY < box.top ||
+              event.clientY > box.bottom)
+          )
+            close();
+        },
+        { signal },
+      );
+      dialog
+        .querySelectorAll('a')
+        .forEach((link) =>
+          link.addEventListener('click', finishClose, { signal }),
+        );
+      window
+        .matchMedia('(min-width:768px)')
+        .addEventListener('change', finishClose, { signal });
+      cleanupMenu = finishClose;
+    });
+  }
+  initHeader();
+  document.addEventListener('astro:page-load', initHeader);
+  window.addEventListener('pageshow', initHeader);
+  document.addEventListener('astro:before-swap', () => {
+    controller?.abort();
+    cleanupMenu?.();
+  });
+</script>

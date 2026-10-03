@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from 'astro:content';
 import Layout from '../../../layouts/Layout.astro';
+import ShareArticle from '../../../components/ui/ShareArticle.astro';
 import { localized, copy } from '../../../lib/i18n';
 export async function getStaticPaths() {
   return (await getCollection('blog')).map((post) => ({
@@ -104,7 +105,8 @@ const structuredData = {
         <Content />
       </div>
       <div class="mx-auto mt-12 max-w-3xl border-t border-slate-200 pt-8">
-        <a href={localized(lang, 'blog')} class="pill secondary">
+        <ShareArticle lang={lang} url={articleUrl} title={post.data.title} />
+        <a href={localized(lang, 'blog')} class="pill secondary mt-8">
           ← {c.journal}
         </a>
       </div>

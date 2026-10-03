@@ -1,0 +1,148 @@
+---
+import { quoteFAQ } from './faq';
+import { quoteCopy } from './copy';
+import { site } from '../../config/site';
+import type { Lang } from '../../lib/i18n';
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const faq = quoteFAQ[lang];
+---
+
+<section
+  data-quote-faq
+  aria-labelledby="quote-faq-title"
+  class="shell section border-t border-indigo-100/70"
+>
+  <div class="grid items-start gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
+    <div data-reveal="fade">
+      <p class="eyebrow">FAQ</p>
+      <h2 id="quote-faq-title" class="heading mt-5">
+        {faq.title}
+      </h2>
+      <p class="mt-6 max-w-md text-sm leading-8 text-slate-500">
+        {faq.description}
+      </p>
+      <a href={`mailto:${site.email}`} class="pill secondary mt-7">
+        {quoteCopy[lang].contact}
+      </a>
+    </div>
+    <div class="space-y-4" data-reveal="fade">
+      {faq.items.map((item, index) => (
+        <details class="group glass" open={index === 0}>
+          <summary class="rounded-3xl px-6 py-6 sm:px-8">
+            <h3 class="flex items-center gap-4 text-base font-bold">
+              <span
+                aria-hidden="true"
+                class="text-xs font-semibold text-indigo-400"
+              >
+                0{index + 1}
+              </span>
+              <span>{item.question}</span>
+              <svg
+                aria-hidden="true"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                class="ml-auto size-5 shrink-0 text-indigo-600 transition-transform motion-safe:group-open:rotate-45"
+              >
+                <path d="M12 5v14M5 12h14" />
+              </svg>
+            </h3>
+          </summary>
+          <div data-faq-answer>
+            <p class="px-6 pb-7 text-sm leading-8 text-slate-500 sm:px-8">
+              {item.answer}
+            </p>
+          </div>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  summary {
+    list-style: none;
+  }
+  summary::-webkit-details-marker {
+    display: none;
+  }
+</style>
+
+<script>
+  let controller: AbortController | undefined;
+  let dispose: (() => void)[] = [];
+
+  function cleanupFAQ() {
+    controller?.abort();
+    dispose.forEach((cleanup) => cleanup());
+    dispose = [];
+  }
+
+  function initFAQ() {
+    cleanupFAQ();
+    controller = new AbortController();
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+    document
+      .querySelectorAll<HTMLDetailsElement>('[data-quote-faq] details')
+      .forEach((details) => {
+        const summary = details.querySelector('summary');
+        const content = details.querySelector<HTMLElement>('[data-faq-answer]');
+        if (!summary || !content || !details.animate) return;
+        let animation: Animation | undefined;
+        let expanding = details.open;
+
+        function finish() {
+          if (!animation) return;
+          animation?.cancel();
+          animation = undefined;
+          details.open = expanding;
+          details.style.height = '';
+          details.style.overflow = '';
+        }
+
+        summary.addEventListener(
+          'click',
+          (event) => {
+            if (reducedMotion.matches) return;
+            event.preventDefault();
+            const startHeight = details.getBoundingClientRect().height;
+            expanding = animation ? !expanding : !details.open;
+            animation?.cancel();
+            details.style.height = `${startHeight}px`;
+            details.style.overflow = 'hidden';
+            details.open = true;
+            const borders = details.offsetHeight - details.clientHeight;
+            const endHeight =
+              summary.getBoundingClientRect().height +
+              borders +
+              (expanding ? content.getBoundingClientRect().height : 0);
+            animation = details.animate(
+              [{ height: `${startHeight}px` }, { height: `${endHeight}px` }],
+              {
+                duration: 320,
+                easing: 'cubic-bezier(0.22, 1, 0.36, 1)',
+                fill: 'forwards',
+              },
+            );
+            animation.onfinish = finish;
+          },
+          { signal: controller!.signal },
+        );
+
+        reducedMotion.addEventListener('change', finish, {
+          signal: controller!.signal,
+        });
+        dispose.push(finish);
+      });
+  }
+
+  initFAQ();
+  document.addEventListener('astro:page-load', initFAQ);
+  document.addEventListener('astro:before-swap', cleanupFAQ);
+</script>

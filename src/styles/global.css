@@ -61,10 +61,14 @@
   }
 }
 .hero-grid {
+  padding-top: calc(80px + env(safe-area-inset-top, 0px));
   background-image:
     linear-gradient(#ffffff04 1px, transparent 1px),
     linear-gradient(90deg, #ffffff04 1px, transparent 1px);
   background-size: 64px 64px;
+}
+.inner-page {
+  padding-top: calc(80px + env(safe-area-inset-top, 0px));
 }
 .orb {
   animation: pulse-slow 8s ease-in-out infinite;
