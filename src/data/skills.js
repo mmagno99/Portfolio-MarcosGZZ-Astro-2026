@@ -64,7 +64,7 @@ export const skills = [
         name: 'CPanel/Servidores',
       },
       {
-        name: 'Apache/Gnix',
+        name: 'Apache/Nginx',
       },
       {
         name: 'SSH',
