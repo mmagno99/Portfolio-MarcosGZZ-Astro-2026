@@ -31,7 +31,7 @@ export const tdiProjects: Project[] = [
     image: 'https://ik.imagekit.io/mmagnodev/amf.webp',
     skills: 'WordPress, Elementor, JavaScript, PHP, CPT',
     category: 'projects-tdi',
-    livedemo: 'https://innova-management.handcraftprueba.com/',
+    livedemo: 'https://amf.org.mx/',
   },
   {
     id: 'ferruzca-instyc',
@@ -63,7 +63,7 @@ export const tdiProjects: Project[] = [
     image: 'https://ik.imagekit.io/mmagnodev/benefit.webp',
     skills: 'WordPress, Elementor, PHP, JavaScript, Crocoblock',
     category: 'projects-tdi',
-    livedemo: 'https://mytappiness.io/',
+    livedemo: 'https://benefit.handcraftprueba.com/',
   },
   {
     id: 'grupo-penafiel',

@@ -1,6 +1,6 @@
 ---
 import { copy, translate, localized, type Lang } from '../lib/i18n';
-import { workProjects, tdiProjects } from '../data/projects';
+import { personalProjects, tdiProjects } from '../data/projects';
 import { skills } from '../data/skills.js';
 import about from '../data/about.js';
 import ProjectCard from './ProjectCard.astro';
@@ -127,7 +127,7 @@ const c = copy[lang];
     </div>
     <div data-stagger class="grid gap-7 md:grid-cols-2">
       <div data-reveal="fade">
-        <ProjectCard lang={lang} project={workProjects[1]} />
+        <ProjectCard lang={lang} project={personalProjects[0]} />
       </div>
       <div data-reveal="fade">
         <ProjectCard lang={lang} project={tdiProjects[3]} />
