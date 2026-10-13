@@ -6,7 +6,8 @@ const listAbout = {
 
   jobs: [
     {
-      job: 'Desarrollador Web Full Stack',
+      job: 'Desarrollador Web',
+      jobKey: 'about.tdi.role',
       company: 'Tierra de ideas',
       dateKey: 'about.tdi.date',
       imagejob: 'https://ik.imagekit.io/mmagnodev/Logo%20TDI.webp',
@@ -16,7 +17,8 @@ const listAbout = {
       recommendationButtonKey: 'about.button.title',
     },
     {
-      job: 'Desarrollador Web Front End',
+      job: 'Desarrollador Frontend',
+      jobKey: 'about.bbx.role',
       company: 'Balabox',
       dateKey: 'about.bbx.date',
       imagejob: 'https://ik.imagekit.io/mmagnodev/balabox.webp',
@@ -26,7 +28,8 @@ const listAbout = {
       recommendationButtonKey: 'about.button.title', // Clave para el texto del botón
     },
     {
-      job: 'Maquetador Web - Freelancer',
+      job: 'Maquetador Web - Autonomo',
+      jobKey: 'about.sah.role',
       company: 'SAH',
       dateKey: 'about.sah.date',
       imagejob: 'https://ik.imagekit.io/mmagnodev/sah_logo.webp',

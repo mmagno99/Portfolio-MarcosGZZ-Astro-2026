@@ -30,13 +30,14 @@ import about from '../data/about.js';
       />
       <div class="p-4">
         <h2 class="text-xl font-extrabold">{about.name}</h2>
-        <p class="mt-2 text-sm text-indigo-600">Full Stack & WordPress</p>
+        <p class="mt-2 text-sm text-indigo-600">{c.profileRole}</p>
         <a
-          href="mailto:contacto@marcosgzz.tech"
+          href="/assets/cv/Marcos_Gonzalez_CV_Desarrollador_Web.pdf"
+          download="Marcos_Gonzalez_CV_Desarrollador_Web.pdf"
           class="pill primary mt-6 w-full"
         >
-          {c.contact}
-          <Icon name="mail" class="size-4" />
+          {c.downloadCV}
+          <Icon name="document" class="size-4" />
         </a>
       </div>
     </aside>
@@ -51,7 +52,7 @@ import about from '../data/about.js';
             <p class="mb-3 text-xs font-semibold text-indigo-600">
               {translate(lang, job.dateKey)}
             </p>
-            <h3 class="text-xl font-extrabold">{job.job}</h3>
+            <h3 class="text-xl font-extrabold">{translate(lang, job.jobKey)}</h3>
             <p class="mt-1 font-semibold text-slate-500">{job.company}</p>
             <p class="mt-5 text-sm leading-8 text-slate-500">
               {translate(lang, job.descjobKey)}

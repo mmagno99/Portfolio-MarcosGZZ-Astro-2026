@@ -19,7 +19,7 @@
     "job_end": "Frontend",
     "typed1": "Desarrollador Web apasionado, que ama crear proyectos innovadores. 🥵",
     "typed2": "Especialista en React, creando interfaces modernas y fluidas. 😏",
-    "typed3": "Experto en WordPress Full Stack, llevando ideas a producción. 😎",
+    "typed3": "Especialista en WordPress y Frontend, llevando ideas a producción. 😎",
     "typed4": "Tu socio digital para soluciones web funcionales y escalables. 🥸",
     "skillsTitle": "Habilidades",
     "skillCardThree": "Infraestructura",
@@ -67,16 +67,19 @@
     "description": "Ingeniero en informática apasionado Desarrollador Web con experiencia en la construcción de sitios y aplicaciones web. Hábil en el diseño de soluciones innovadoras para retos técnicos. Ampliamente comprometido con el aprendizaje continuo para mejorar las mejores prácticas del desarrollo web",
 
     "sah": {
+      "role": "Maquetador Web Autónomo",
       "date": "Marzo 2019 – Julio 2021",
-      "description": "Desarrollo de sitio web a medida con PHP, JavaScript y Bootstrap, actualizaciones de las dependencias del sitio, cambios de estructura y configuracion de FireWall para protección DDoS"
+      "description": "Maquetación y desarrollo de páginas web para negocios y clientes locales, utilizando HTML y CSS. Creación de interfaces responsivas y adaptación de contenidos para ayudar a los negocios a establecer y mejorar su presencia en internet."
     },
     "bbx": {
+      "role": "Desarrollador Frontend",
       "date": "Febrero 2022 – Septiembre 2023",
-      "description": "Desarrollo de sitios Web con WordPress y React a medida con Figma, configuración de servidores y mantenimiento continuo a los sitios web."
+      "description": "Desarrollo y maquetación de sitios corporativos y landing pages responsivas a partir de diseños en Figma, utilizando HTML, CSS, JavaScript y WordPress. Personalización de interfaces, publicación de proyectos y mantenimiento de sitios web para distintos clientes."
     },
     "tdi": {
+      "role": "Desarrollador Web",
       "date": "Octubre 2023 – Septiembre 2026",
-      "description": "Diseño y construcción de sitios web con WordPress, desarrollo de plugins con funciones especificas, manejo de API's con integraciones de WooCommerce, manejo de bases de datos MySQL, automatizaciones con IA"
+      "description": "Desarrollo de sitios web, interfaces responsivas y funcionalidades personalizadas con WordPress, PHP y JavaScript. Implementación de contenido dinámico, integraciones y mejoras de rendimiento. Participación en proyectos con React, Tailwind CSS y Firebase, utilizando herramientas de desarrollo asistido por IA como OpenAI Codex."
     },
 
     "button": {
@@ -124,7 +127,7 @@
       "date": "Octubre - 2023"
     },
     "job3": {
-      "name": "Tierra de ideas/ Full Stack WordPress",
+      "name": "Tierra de ideas/ WordPress & Frontend",
       "dot1": "Desarrollo Web UI/UX",
       "dot2": "Seguridad Web",
       "dot3": "Escalabilidad Web",

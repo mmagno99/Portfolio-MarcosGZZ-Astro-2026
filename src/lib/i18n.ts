@@ -33,7 +33,10 @@ export function localized(lang: Lang, path = '') {
 }
 export const copy = {
   es: {
-    role: 'DESARROLLADOR FULL STACK & WORDPRESS',
+    role: 'DESARROLLADOR WORDPRESS & FRONTEND',
+    profileRole: 'WordPress Specialist · Frontend Developer',
+    downloadCV: 'Descargar CV',
+    homeSEO: 'Marcos González — Desarrollador WordPress & Frontend',
     hero: 'Ideas que cobran',
     accent: 'vida en la web.',
     intro:
@@ -94,10 +97,13 @@ export const copy = {
     demoNotice:
       'Ejemplo de demostración. No representa un proyecto real ni un cliente de TDI.',
     aboutDesc:
-      'Soy Marcos González, desarrollador Full Stack especializado en WordPress. Conoce mi experiencia, los equipos con los que he trabajado y lo que he aprendido en cada etapa.',
+      'Soy Marcos González, desarrollador web especializado en WordPress y enfocado en Frontend. Conoce mi experiencia, los proyectos en los que he participado y cómo he evolucionado profesionalmente.',
   },
   en: {
-    role: 'FULL STACK & WORDPRESS DEVELOPER',
+    role: 'WORDPRESS & FRONTEND DEVELOPER',
+    profileRole: 'WordPress Specialist · Frontend Developer',
+    downloadCV: 'Download CV',
+    homeSEO: 'Marcos González — WordPress & Frontend Developer',
     hero: 'Ideas brought',
     accent: 'to life on the web.',
     intro:
@@ -159,10 +165,13 @@ export const copy = {
     demoNotice:
       'Demonstration example. This does not represent a real TDI project or client.',
     aboutDesc:
-      'I’m Marcos González, a Full Stack developer specializing in WordPress. Discover my experience, the teams I have worked with and what I have learned along the way.',
+      'I’m Marcos González, a web developer specializing in WordPress with a focus on Frontend. Discover my experience, the projects I have contributed to and how I have grown professionally.',
   },
   pt: {
-    role: 'DESENVOLVEDOR FULL STACK & WORDPRESS',
+    role: 'DESENVOLVEDOR WORDPRESS & FRONTEND',
+    profileRole: 'Especialista em WordPress · Desenvolvedor Frontend',
+    downloadCV: 'Baixar CV',
+    homeSEO: 'Marcos González — Desenvolvedor WordPress & Frontend',
     hero: 'Ideias que ganham',
     accent: 'vida na web.',
     intro:
@@ -224,6 +233,6 @@ export const copy = {
     demoNotice:
       'Exemplo de demonstração. Não representa um projeto real nem um cliente da TDI.',
     aboutDesc:
-      'Sou Marcos González, desenvolvedor Full Stack especializado em WordPress. Conheça minha experiência, as equipes com que trabalhei e o que aprendi em cada etapa.',
+      'Sou Marcos González, desenvolvedor web especializado em WordPress e focado em Frontend. Conheça minha experiência, os projetos dos quais participei e como evoluí profissionalmente.',
   },
 };

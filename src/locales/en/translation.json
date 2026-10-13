@@ -18,7 +18,7 @@
     "job_end": "Developer.",
     "typed1": "Passionate Web Developer who loves creating innovative projects. 🥵",
     "typed2": "React Specialist, crafting modern and fluid interfaces. 😏",
-    "typed3": "WordPress Full Stack Expert, turning ideas into production. 😎",
+    "typed3": "WordPress & Frontend specialist, turning ideas into production. 😎",
     "typed4": "Your digital partner for functional and scalable web solutions. 🥸",
     "skillsTitle": "Skills",
     "skillCardThree": "Infrastructure",
@@ -62,16 +62,19 @@
     "description": "Passionate Computer Engineer | Web Developer with experience in building websites and web applications. Skilled in designing innovative solutions for technical challenges. Deeply committed to continuous learning to improve web development best practices.",
 
     "sah": {
+      "role": "Freelance Web Developer",
       "date": "March 2019 – July 2021",
-      "description": "Custom website development with PHP, JavaScript, and Bootstrap, updates to the site's dependencies, structural changes, and FireWall configuration for DDoS protection."
+      "description": "Layout and development of web pages for local businesses and clients, using HTML and CSS. Creation of responsive interfaces and adaptation of content to help businesses establish and improve their online presence."
     },
     "bbx": {
+      "role": "Frontend Developer",
       "date": "February 2022 – September 2023",
-      "description": "Custom web development with WordPress and React using Figma, server configuration, and ongoing website maintenance."
+      "description": "Development and layout of responsive corporate websites and landing pages based on Figma designs, using HTML, CSS, JavaScript and WordPress. Interface customization, project deployment and website maintenance for various clients."
     },
     "tdi": {
+      "role": "Web Developer",
       "date": "October 2023 – September 2026",
-      "description": "Design and construction of websites with WordPress, development of plugins with specific functionalities, API handling with WooCommerce integrations, MySQL database management, and AI-powered automations."
+      "description": "Development of websites, responsive interfaces and custom functionality with WordPress, PHP and JavaScript. Implementation of dynamic content, integrations and performance improvements. Participation in projects with React, Tailwind CSS and Firebase, using AI-assisted development tools such as OpenAI Codex."
     },
 
     "button": {
@@ -119,7 +122,7 @@
       "date": "October 2023"
     },
     "job3": {
-      "name": "Tierra de ideas/ WordPress Full Stack",
+      "name": "Tierra de ideas/ WordPress & Frontend",
       "dot1": "UI/UX Web Development",
       "dot2": "Web Security",
       "dot3": "Web Scalability",

@@ -1,6 +1,6 @@
 ---
 interface Props {
-  name?: 'arrow' | 'code' | 'spark' | 'mail' | 'up';
+  name?: 'arrow' | 'code' | 'spark' | 'mail' | 'up' | 'document';
   class?: string;
 }
 const { name = 'arrow', class: className = 'size-5' } = Astro.props;
@@ -10,6 +10,7 @@ const paths = {
   spark: 'm12 3 2.5 6.5L21 12l-6.5 2.5L12 21l-2.5-6.5L3 12l6.5-2.5L12 3Z',
   mail: 'M3 6h18v12H3V6Zm0 0 9 7 9-7',
   up: 'm6 12 6-6 6 6M12 6v14',
+  document: 'M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8L14 2Zm0 0v6h6M12 11v7m-3-3 3 3 3-3',
 };
 ---
 
